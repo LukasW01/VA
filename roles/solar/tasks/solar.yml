@@ -1,0 +1,15 @@
+---
+- name: Make HTTP GET request
+  ansible.builtin.uri:
+    url: "{{ smartfox_url }}"
+    method: GET
+    return_content: yes
+  register: http_response
+
+- name: Send Message
+  ansible.builtin.uri:
+    url: "{{ gotify_url }}"
+    method: POST
+    body_format: json
+    body:
+      message: " {{ http_response.content }}"

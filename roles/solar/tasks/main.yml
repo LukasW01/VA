@@ -1,0 +1,3 @@
+---
+- name: Include solar
+  ansible.builtin.include_tasks: solar.yml
