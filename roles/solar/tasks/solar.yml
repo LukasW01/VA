@@ -6,10 +6,24 @@
     return_content: yes
   register: http_response
 
-- name: Send Message
-  ansible.builtin.uri:
-    url: "{{ gotify_url }}"
-    method: POST
-    body_format: json
-    body:
-      message: " {{ http_response.content }}"
+- name: Extract xml with regex
+  ansible.builtin.set_fact:
+    grid_value_raw: "{{ http_response | regex_search('<value id=\"toGridValue\">(.*?)</value>', '\\1') | first }}"
+    hid_production_raw: "{{ http_response | regex_search('<value id=\"hidProduction\">(.*?)</value>', '\\1') | first }}"
+
+- name: Convert grid_value and hid_production to float
+  ansible.builtin.set_fact:
+    grid_value: "{{ grid_value_raw | regex_replace(' kW', '') | regex_replace('\\s', '') | float }}"
+    hid_production: "{{ hid_production_raw | regex_replace(' kW', '') | regex_replace('\\s', '') | float }}"
+
+- name: Send notifications via pushover.net
+  community.general.pushover:
+    msg: >
+      {% if grid_value | float > 0 %}
+      "Production is at {{ hid_production }} kW. We are exporting {{ grid_value }} kW to the grid"
+      {% else %}
+      "Current production is at {{ hid_production }} kW. We are importing {{ grid_value }} kW."
+      {% endif %}
+    app_token: "{{ pushover_app_token }}"
+    user_key: "{{ pushover_user_key }}"
+  delegate_to: localhost
