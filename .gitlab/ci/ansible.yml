@@ -7,10 +7,11 @@ stages:
 variables:
   PIP_CACHE_DIR: "$CI_PROJECT_DIR/.cache/pip"
 
-cache:
-  key: "$CI_COMMIT_REF_NAME"
-  paths:
-    - .cache/pip
+default:
+  cache:
+    key: "$CI_COMMIT_REF_NAME"
+    paths:
+      - .cache/pip
 
 sast: 
   stage: test
