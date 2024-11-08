@@ -1,3 +1,6 @@
+variables:
+  REGISTRY: ghcr.io
+
 default:
   before_script: 
     - export GRADLE_USER_HOME="$(pwd)/.gradle"
@@ -8,9 +11,6 @@ default:
     paths:
       - build
       - .gradle
-
-variables:
-  REGISTRY: ghcr.io
 
 gradle:test:
   stage: gradle
