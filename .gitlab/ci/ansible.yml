@@ -32,6 +32,6 @@ ansible-playbook:
     - pip install ansible ansible-lint
     - ansible-galaxy install -r requirements.yml --force
   script: 
-    - ansible-playbook -i inventory run.yml --vault-password-file vault.txt --become-password-file become.txt
+    - ansible-playbook -i inventory run.yml --vault-password-file $VAULT
   only: 
     - schedules
