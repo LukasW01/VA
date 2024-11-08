@@ -1,3 +1,3 @@
 include:
-  - local: .gitlab/ci/ansible.yml
   - local: .gitlab/ci/gradle.yml
+  - local: .gitlab/ci/ansible.yml
