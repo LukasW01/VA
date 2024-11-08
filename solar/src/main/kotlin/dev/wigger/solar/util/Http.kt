@@ -20,6 +20,7 @@ class Http {
             .build()
             .send(HttpRequest.newBuilder().uri(URI.create("$domain/values.xml")).build(), HttpResponse.BodyHandlers.ofString())
             .body()
+            .replace(Regex("""<value id="hidApiKey">.*?</value>"""), "")
     } catch (e: Exception) {
         Log.error(e.message)
         "<values></values>"
