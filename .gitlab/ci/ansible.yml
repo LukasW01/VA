@@ -1,9 +1,5 @@
 image: python:3-slim
 
-stages: 
-  - test
-  - deploy
-
 variables:
   PIP_CACHE_DIR: "$CI_PROJECT_DIR/.cache/pip"
 

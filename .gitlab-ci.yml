@@ -1,3 +1,9 @@
+stages:
+  - test
+  - deploy
+  - gradle
+  - docker
+
 include:
   - local: .gitlab/ci/gradle.yml
   - local: .gitlab/ci/ansible.yml
