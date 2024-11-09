@@ -18,12 +18,43 @@
 
 - name: Send notifications via pushover.net
   community.general.pushover:
-    msg: >
-      {% if grid_value | float > 0 %}
-      "Production is at {{ hid_production }} kW. We are exporting {{ grid_value }} kW to the grid"
+    title: "Solaranlage - {{ ansible_date_time.iso8601 }}"
+    msg: |
+      {% if grid_value | float < 0 %}
+      Produktion: {{ hid_production }} kW. Es wird ins Netz eingespeist: {{ grid_value }} kW
       {% else %}
-      "Current production is at {{ hid_production }} kW. We are importing {{ grid_value }} kW."
+      Produktion: {{ hid_production }} kW. Es wird vom Netz bezogen: {{ grid_value }} kW
       {% endif %}
     app_token: "{{ pushover_app_token }}"
     user_key: "{{ pushover_user_key }}"
-  delegate_to: localhost
+    pri: 0
+
+- name: Send notifications via pushover.net
+  community.general.pushover:
+    title: "Solaranlage - Produkte"
+    msg: |
+      | Produkt | Leistung |
+      {% if hid_production | float >= 0.975 %}
+      - Waschmaschine: 0.975 kW
+      {% endif %}
+      {% if hid_production | float >= 3.92 %}
+      - Tumbler: 3.92 kW
+      {% endif %}
+      {% if hid_production | float >= 2.3 %}
+      - Backofen: 2.3 kW
+      {% endif %}
+      {% if hid_production | float >= 0.8 %}
+      - Steamer: 0.8 kW
+      {% endif %}
+      {% if hid_production | float >= 0.8 %}
+      - Geschirrspüler: 0.8 kW
+      {% endif %}
+      {% if hid_production | float >= 1.4 %}
+      - Herdplatte (klein): 1.4 kW
+      {% endif %}
+      {% if hid_production | float >= 2.4 %}
+      - Herdplatte (gross): 2.4 kW
+      {% endif %}
+    app_token: "{{ pushover_app_token }}"
+    user_key: "{{ pushover_user_key }}"
+    pri: 0
