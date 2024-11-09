@@ -37,7 +37,7 @@ gradle:build:
   image: docker:cli
   before_script:
     - apk add --no-cache openjdk21 gradle
-  script: ./gradlew build -Dquarkus.package.type=native -Dquarkus.native.container-build=true -x spotlessKotlin diktatCheck
+  script: gradle build -Dquarkus.package.type=native -Dquarkus.native.container-build=true -x spotlessKotlin diktatCheck
   artifacts:
     untracked: true
   only:
