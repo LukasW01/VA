@@ -47,7 +47,7 @@
       Steamer: 0.8 kW
       {% endif %}
       {% if grid_value | float <= -0.75 %}
-      Geschirrspüler: 0.8 kW
+      Geschirrspüler: 0.75 kW
       {% endif %}
       {% if grid_value | float <= -1.4 %}
       Herdplatte (klein): 1.4 kW
