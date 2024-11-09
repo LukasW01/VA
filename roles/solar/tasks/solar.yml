@@ -34,27 +34,28 @@
     title: "Solaranlage - Produkte"
     msg: |
       | Produkt | Leistung |
-      {% if hid_production | float >= 0.975 %}
-      - Waschmaschine: 0.975 kW
+      {% if grid_value | float <= -0.975 %}
+      Waschmaschine: 0.975 kW
       {% endif %}
-      {% if hid_production | float >= 3.92 %}
-      - Tumbler: 3.92 kW
+      {% if grid_value | float <= -3.92 %}
+      Tumbler: 3.92 kW
       {% endif %}
-      {% if hid_production | float >= 2.3 %}
-      - Backofen: 2.3 kW
+      {% if grid_value | float <= -2.3 %}
+      Backofen: 2.3 kW
       {% endif %}
-      {% if hid_production | float >= 0.8 %}
-      - Steamer: 0.8 kW
+      {% if grid_value | float <= -0.8 %}
+      Steamer: 0.8 kW
       {% endif %}
-      {% if hid_production | float >= 0.8 %}
-      - Geschirrspüler: 0.8 kW
+      {% if grid_value | float <= -0.75 %}
+      Geschirrspüler: 0.8 kW
       {% endif %}
-      {% if hid_production | float >= 1.4 %}
-      - Herdplatte (klein): 1.4 kW
+      {% if grid_value | float <= -1.4 %}
+      Herdplatte (klein): 1.4 kW
       {% endif %}
-      {% if hid_production | float >= 2.4 %}
-      - Herdplatte (gross): 2.4 kW
+      {% if grid_value | float <= -2.4 %}
+      Herdplatte (gross): 2.4 kW
       {% endif %}
     app_token: "{{ pushover_app_token }}"
     user_key: "{{ pushover_user_key }}"
     pri: 0
+  when: grid_value | float <= -0.75
