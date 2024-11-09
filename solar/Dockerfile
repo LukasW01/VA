@@ -1,6 +1,6 @@
 FROM quay.io/quarkus/quarkus-micro-image:2.0
 ARG PROJECT=solar
-ARG VERSION=0.5
+ARG VERSION=1.0
 ARG PORT=8080
 
 WORKDIR /app
@@ -13,4 +13,4 @@ EXPOSE $PORT
 USER 1001
 
 ENTRYPOINT ["/bin/sh", "-c"]
-CMD ["/app/build/solar-0.5-runner"]
+CMD ["/app/build/solar-1.0-runner"]

@@ -7,7 +7,7 @@ plugins {
 }
 
 group 'dev.wigger.solar'
-version '0.5'
+version '1.0'
 
 repositories {
     mavenCentral()
