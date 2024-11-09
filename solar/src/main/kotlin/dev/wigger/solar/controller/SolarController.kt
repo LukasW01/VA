@@ -17,11 +17,11 @@ import jakarta.ws.rs.core.MediaType
 @Path("/")
 @Produces(MediaType.APPLICATION_XML) @Consumes(MediaType.APPLICATION_XML)
 @RateLimited(bucket = "solar", identityResolver = IpResolver::class)
-@CacheResult(cacheName = "solar")
 class SolarController {
     @Inject
     lateinit var http: Http
     
     @GET
+    @CacheResult(cacheName = "solar")
     fun getSolar(): String = http.smartfox()
 }
