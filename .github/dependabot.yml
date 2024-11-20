@@ -6,6 +6,6 @@
 version: 2
 updates:
   - package-ecosystem: "gradle"
-    directory: "/solar/"
+    directory: "/app/"
     schedule:
       interval: "weekly"

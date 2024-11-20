@@ -21,7 +21,9 @@
     title: "Solaranlage - {{ ansible_date_time.iso8601 }}"
     msg: |
       {% if grid_value | float < 0 %}
-      Produktion: {{ hid_production }} kW. Es wird ins Netz eingespeist: {{ grid_value }} kW
+      Produktion: {{ hid_production }} kW. Es wird ins Netz eingespeist: {{ grid_value | abs }} kW
+      {% elif grid_value | float == 0 %}
+      Produktion: {{ hid_production }} kW. Es wird kein Strom ins Netz eingespeist.
       {% else %}
       Produktion: {{ hid_production }} kW. Es wird vom Netz bezogen: {{ grid_value }} kW
       {% endif %}

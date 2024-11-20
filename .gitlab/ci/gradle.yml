@@ -4,7 +4,7 @@ variables:
 default:
   before_script: 
     - export GRADLE_USER_HOME="$(pwd)/.gradle"
-    - cd solar
+    - cd app
   cache:
     key: "$CI_COMMIT_REF_NAME"
     policy: push
