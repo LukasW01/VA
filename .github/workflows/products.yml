@@ -2,7 +2,7 @@ name: Ansible-Playbook (Products)
 
 on:
   schedule:
-    - cron: "*/15 * * * *"
+    - cron: "*/15 8-18 * * *"
   workflow_dispatch:
     inputs:
       custom_tag_extension:
