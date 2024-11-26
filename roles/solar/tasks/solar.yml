@@ -30,6 +30,7 @@
     app_token: "{{ pushover_app_token }}"
     user_key: "{{ pushover_user_key }}"
     pri: 0
+  when: schedule | default(false)
 
 - name: Send notifications via pushover.net
   community.general.pushover:
@@ -60,4 +61,4 @@
     app_token: "{{ pushover_app_token }}"
     user_key: "{{ pushover_user_key }}"
     pri: 0
-  when: grid_value | float <= -0.75
+  when: grid_value | float <= -0.75 and products | default(false)

@@ -1,8 +1,8 @@
-name: Ansible-Playbook 
+name: Ansible-Playbook (Products)
 
 on:
   schedule:
-    - cron: "0 8-18 * * *"
+    - cron: "*/15 * * * *"
   workflow_dispatch:
     inputs:
       custom_tag_extension:
@@ -23,3 +23,4 @@ jobs:
             requirements: requirements.yml
             options: |
               -i inventory
+              -e "products=true"
