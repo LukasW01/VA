@@ -1,0 +1,21 @@
+name: Ansible-Playbook 
+
+on:
+  schedule:
+    - cron: "0 8-18 * * *"
+  workflow_dispatch:
+    inputs:
+      custom_tag_extension:
+        description: "Run playbook"
+        required: false
+
+jobs:
+  run:
+      name: Ansible Playbook
+      uses: dawidd6/action-ansible-playbook@v2
+      with:
+        playbook: run.yml
+        vault_password: ${{secrets.VAULT}}
+        requirements: requirements.yml
+        options: |
+          -i inventory
