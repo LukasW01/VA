@@ -10,12 +10,16 @@ on:
         required: false
 
 jobs:
-  run:
-      name: Ansible Playbook
-      uses: dawidd6/action-ansible-playbook@v2
-      with:
-        playbook: run.yml
-        vault_password: ${{secrets.VAULT}}
-        requirements: requirements.yml
-        options: |
-          -i inventory
+  lint:
+      name: Ansible Playbook 
+      runs-on: ubuntu-latest
+      steps:
+        - uses: actions/checkout@v4
+        - name: Ansible Playbook
+          uses: dawidd6/action-ansible-playbook@v2
+          with:
+            playbook: run.yml
+            vault_password: ${{secrets.VAULT}}
+            requirements: requirements.yml
+            options: |
+              -i inventory
