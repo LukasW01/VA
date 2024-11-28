@@ -1,0 +1,27 @@
+---
+- name: Get printer status page
+  ansible.builtin.uri:
+    url: "{{ printer_url }}"
+    return_content: yes
+  register: printer_status
+
+- name: Extract toner levels
+  ansible.builtin.set_fact:
+    toner_levels: "{{ printer_status.content | regex_findall('height=\"(\\d+)\".*?alt=\"(\\w+)\"', multiline=True) }}"
+
+- name: Filter toner levels which are below 15%
+  ansible.builtin.set_fact:
+    toner_levels: "{{ toner_levels | selectattr('0', 'int', 'lt', 15) | list }}"
+
+- name: Send notifications via pushover.net
+  community.general.pushover:
+    title: "Drucker"
+    msg: |
+      Kritische Tonerstände:
+      {% for level, name in toner_levels %}
+      - {{ name }}: {{ level }}%
+      {% endfor %}
+    app_token: "{{ pushover_app_token }}"
+    user_key: "{{ pushover_user_key }}"
+    pri: 0
+  when: toner_levels | length > 0
