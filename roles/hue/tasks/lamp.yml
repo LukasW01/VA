@@ -1,0 +1,18 @@
+---
+- name: Set state for lamp
+  ansible.builtin.set_fact:
+    state: {
+      "on": true,
+      "bri": 254,
+      "hue": 10000,
+      "sat": 254
+    }
+
+- name: Make HTTP PUT request to turn on lamp
+  ansible.builtin.uri:
+    url: "{{ hue_url }}/api/{{ hue_user }}/lights/{{ item }}/state"
+    method: PUT
+    body: "{{ state | to_json }}"
+    return_content: yes
+  register: http_response
+  loop: "{{ range(1, 6) }}"
